@@ -37,15 +37,30 @@ describe Book do
     end
   end
   describe '#modify' do
-    it 'allows a user to update the titlle, category, and status of a book' do
+    it 'allows a user to update the title, category, and status of a book' do
       test_book = Book.create({:name => "Book Title", :category => "Sci-Fi", :status => false, :id => 1})
       test_book.modify({'name' => "Awesome Book"})
       test_book.name.should eq "Awesome Book"
     end
-    it 'allows a user to update the titlle, category, and status of a book' do
+    it 'allows a user to update the title, category, and status of a book' do
       test_book = Book.create({:name => "Book Title", :category => "Sci-Fi", :status => false, :id => 1})
       test_book.modify({'category' => "Fiction"})
       test_book.category.should eq "Fiction"
+    end
+  end
+  describe '#delete' do
+    it 'allows a user to delete a book' do
+      test_book = Book.create({:name => "Book Title", :category => "Sci-Fi", :status => false, :id => 1})
+      test_book.delete
+      Book.all.length.should eq 0
+    end
+  end
+  describe '.find' do
+    it 'finds an instance of itself' do
+      test_book = Book.create({:name => "Book Title", :category => "Sci-Fi", :status => false})
+      test_book2 = Book.create({:name => "Book Title", :category => "Sci-Fi", :status => false})
+      test_book2_id = test_book2.id
+      Book.find(test_book2_id).should eq test_book2
     end
   end
 end
